@@ -1,0 +1,28 @@
+FROM horovod/horovod:0.19.1-tf2.1.0-torch1.4.0-mxnet1.6.0-py3.6-gpu 
+USER root
+RUN apt-get update && apt-get install -y gcc
+RUN apt-get install -y vim wget apt-utils ssh 
+RUN pip install soundfile && \
+        pip install unidecode && \
+        pip install sentencepiece && \
+        pip install editdistance && \
+        pip install tensorboard_logger && \
+        pip install py3nvml && \
+        pip install librosa && \
+        pip install kenlm 
+RUN apt-get -y install libsndfile1-dev
+RUN apt-get -y install unzip
+RUN wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip && \
+        unzip ninja-linux.zip -d /usr/local/bin/ && \
+        update-alternatives --install /usr/bin/ninja ninja /usr/local/bin/ninja 1 --force
+
+RUN pip install gpustat
+RUN git clone --depth=1 https://github.com/amix/vimrc.git ~/.vim_runtime && sh ~/.vim_runtime/install_awesome_vimrc.sh
+RUN echo "set number" >> ~/.vimrc
+RUN apt-get install less
+
+# downgrad to cuda9.2 due to philly machine only install cuda9.2
+RUN pip install torch==1.4.0+cu92 torchvision==0.5.0+cu92 -f https://download.pytorch.org/whl/torch_stable.html
+
+
+CMD ["bash"]
