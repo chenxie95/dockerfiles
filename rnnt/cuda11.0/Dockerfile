@@ -83,4 +83,6 @@ RUN pip install tensorboard==1.15
 RUN pip install onnxruntime
 RUN pip install onnxruntime-gpu
 
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10 
+
 CMD ["bash"]
