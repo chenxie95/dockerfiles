@@ -1,0 +1,33 @@
+Sending build context to Docker daemon  71.02MB
+Step 1/10 : From meadml/cuda10.0-cudnn7-devel-ubuntu16.04-python3.6
+ ---> 04aa3c76f9ca
+Step 2/10 : USER root
+ ---> Using cache
+ ---> cc788269c70b
+Step 3/10 : RUN apt update
+ ---> Using cache
+ ---> 859269b3eadb
+Step 4/10 : RUN apt install software-properties-common &&         add-apt-repository -y ppa:deadsnakes/ppa
+ ---> Using cache
+ ---> 37de234cad9e
+Step 5/10 : RUN apt-get install wget
+ ---> Using cache
+ ---> 6701268b9b84
+Step 6/10 : ENV OPENMPI_VERSION=4.0
+ ---> Using cache
+ ---> 8939ca91bbf8
+Step 7/10 : ENV OPENMPI_STRING=openmpi-${OPENMPI_VERSION}.0
+ ---> Using cache
+ ---> f9b2d05fd724
+Step 8/10 : RUN mkdir /tmp/openmpi &&         cd /tmp/openmpi &&         wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.0.tar.gz &&         tar zxf ${OPENMPI_STRING}.tar.gz &&         cd ${OPENMPI_STRING} &&         ./configure --enable-orterun-prefix-by-default --with-openib --prefix /usr/local/mpi &&         make -j 4 all &&         make install &&         ldconfig &&         rm -rf /tmp/openmpi &&         test -f /usr/local/mpi/bin/mpic++  # Sanity check
+ ---> Using cache
+ ---> e02821fa3290
+Step 9/10 : RUN pip3 install torch===1.6.0 torchvision===0.7.0 -f https://download.pytorch.org/whl/torch_stable.html
+ ---> Using cache
+ ---> ec50e195674a
+Step 10/10 : CMD ["bash"]
+ ---> Running in 6dee6894ac06
+Removing intermediate container 6dee6894ac06
+ ---> d3fe9857d366
+Successfully built d3fe9857d366
+Successfully tagged rnnt-cuda10.0:latest
