@@ -21,9 +21,25 @@ ENV PATH /usr/local/mpi/bin:$PATH
 
 RUN apt-get -y install python3-pip
 
-# RUN pip3 install torch===1.6.0 torchvision===0.7.0 -f https://download.pytorch.org/whl/torch_stable.html
-# RUN pip3 install torch==1.8.0+cu111 torchvision==0.9.0+cu111 torchaudio==0.8.0 -f https://download.pytorch.org/whl/torch_stable.html
-RUN pip3 install torch torchvision torchaudio
+# manually install pytorch
+ENV PATH="/root/miniconda3/bin:${PATH}"
+ARG PATH="/root/miniconda3/bin:${PATH}"
+RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
+      	bash Miniconda3-latest-Linux-x86_64.sh -b
+
+# install dependencies
+RUN apt-get install -y git
+RUN conda install -y numpy ninja pyyaml mkl mkl-include setuptools cmake cffi typing_extensions future six requests dataclasses && \
+    	conda install -y -c pytorch magma-cuda110 && \
+	git clone --recursive https://github.com/pytorch/pytorch && \
+	cd pytorch && \
+	git checkout release/1.8 && \
+	git submodule sync && \
+	git submodule update --init --recursive
+ENV CMAKE_PREFIX_PATH=${CONDA_PREFIX:-"$(dirname $(which conda))/../"} 
+RUN cd pytorch && python3 setup.py install && \
+	python3 setup.py develop && python -c "import torch"
+
 RUN apt-get -y install cmake
 RUN HOROVOD_GPU_ALLREDUCE=NCCL HOROVOD_GPU_BROADCAST=NCCL pip3 install horovod
 RUN apt-get update && apt-get install -y gcc
