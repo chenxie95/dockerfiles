@@ -62,3 +62,7 @@ after installation, you need to re-open the shell to use it with command conda
 ```
 
 The main reason I would like to install Pytorch manually is that probably in Pytorch's website, for the latest pytorch version, it only support some specific CUDA version. It is fine to install Pytorch with lower version, but will trigger error when install Apex
+
+## Additional Useful Information
+
+update cuda drive in Azure VM [reference link](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/n-series-driver-setup)
