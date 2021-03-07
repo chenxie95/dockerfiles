@@ -10,6 +10,20 @@ such as NVIDIA Image for AI using GPUs, with latest Nvidia driver.
 By default, the docker, and a relatively new CUDA driver is
 installed, e.g. cuda11.0.
 
+## Mount docker under /mnt [reference link](https://www.ibm.com/support/knowledgecenter/SSBS6K_3.2.x/installing/docker_dir.html)
+
+The default /var/lib/docker is mount udner /sda1, which is the root dir, it only contains about 32G disk, probably not enough for large docker image build
+
+```bash
+sudo docker rm -f $(docker ps -aq); docker rmi -f $(docker images -q)
+sudo systemctl stop docker
+sudo rm -rf /var/lib/docker
+sudo mkdir /var/lib/docker
+sudo mkdir /mnt/docker
+sudo mount --rbind /mnt/docker /var/lib/docker
+sudo systemctl start docker
+```
+
 ## Install NVidia-docker [reference link](https://github.com/chenxie95/dockerfiles.git)
 
 ```bash
