@@ -33,12 +33,12 @@ RUN conda install -y numpy ninja pyyaml mkl mkl-include setuptools cmake cffi ty
     	conda install -y -c pytorch magma-cuda110 && \
 	git clone --recursive https://github.com/pytorch/pytorch && \
 	cd pytorch && \
-	git checkout release/1.8 && \
+	git checkout release/1.7 && \
 	git submodule sync && \
 	git submodule update --init --recursive
 ENV CMAKE_PREFIX_PATH=${CONDA_PREFIX:-"$(dirname $(which conda))/../"} 
-RUN cd pytorch && python3 setup.py install
-RUN cd pytorch && python3 setup.py develop
+RUN cd pytorch && python3 setup.py install && \
+	python3 setup.py develop
 RUN python3 -c "import torch"
 
 RUN apt-get -y install cmake
@@ -51,7 +51,7 @@ RUN pip3 install soundfile && \
         pip3 install editdistance && \
         pip3 install tensorboard_logger && \
         pip3 install py3nvml && \
-        pip3 install librosa
+        pip3 install librosa 
 RUN apt-get -y install libsndfile1-dev
 RUN apt-get -y install unzip && \
     apt-get -y install git
@@ -89,7 +89,6 @@ RUN pip install tensorboard==1.15
 RUN pip install onnx
 RUN pip install onnxruntime
 RUN pip install onnxruntime-gpu
-RUN pip3 install PyYAML
 
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10 
 
