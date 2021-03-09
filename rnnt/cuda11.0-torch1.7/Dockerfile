@@ -22,10 +22,10 @@ ENV PATH /usr/local/mpi/bin:$PATH
 RUN apt-get -y install python3-pip
 
 # manually install pytorch
-ENV PATH="/root/miniconda3/bin:${PATH}"
-ARG PATH="/root/miniconda3/bin:${PATH}"
+ENV PATH="/usr/bin/miniconda3/bin:${PATH}"
+ARG PATH="/usr/bin/miniconda3/bin:${PATH}" 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
-      	bash Miniconda3-latest-Linux-x86_64.sh -b
+      	bash Miniconda3-latest-Linux-x86_64.sh -b -p /usr/bin/miniconda3/
 
 # install dependencies
 RUN apt-get install -y git
@@ -83,13 +83,17 @@ RUN pip install --upgrade pip
 # install the IB driver
 RUN apt-get install -y libibverbs-dev
 
-RUN pip install numba==0.48
-RUN pip install pandas
-RUN pip install tensorboard==1.15
-RUN pip install onnx
-RUN pip install onnxruntime
-RUN pip install onnxruntime-gpu
+RUN pip3 install numba==0.48
+RUN pip3 install pandas
+RUN pip3 install tensorboard==1.15
+RUN pip3 install onnx
+RUN pip3 install onnxruntime
+RUN pip3 install onnxruntime-gpu
 
+
+# RUN pip3 install azureml-sdk
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10 
+# RUN update-alternatives --install /usr/bin/python python /usr/bin/miniconda3/bin/python 10 
+ENV PATH "/usr/local/mpi/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 CMD ["bash"]
