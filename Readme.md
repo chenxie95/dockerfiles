@@ -5,7 +5,7 @@ update the frequently used Docker image, and then push to Docker Hub, so as to u
 
 ## Create Azure VM
 
-In Azure Portal, create VM machine with NVidia supported image,
+In Azure Portal, create VM machine with NVdia supported image,
 such as NVIDIA Image for AI using GPUs, with latest Nvidia driver.
 By default, the docker, and a relatively new CUDA driver is
 installed, e.g. cuda11.0.
@@ -24,7 +24,7 @@ sudo mount --rbind /mnt/docker /var/lib/docker
 sudo systemctl start docker
 ```
 
-## Install NVidia-docker [reference link](https://github.com/chenxie95/dockerfiles.git)
+## Install NVdia-docker [reference link](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
 
 ```bash
   distribution=$(. /etc/os-release;echo $ID$VERSION_ID) \
