@@ -47,9 +47,7 @@ RUN pip3 install soundfile && \
         pip3 install sentencepiece && \
         pip3 install editdistance && \
         pip3 install tensorboard_logger && \
-        pip3 install py3nvml && \
-        pip3 install librosa && \
-        pip3 install kenlm 
+        pip3 install py3nvml
 RUN apt-get -y install libsndfile1-dev
 RUN apt-get -y install unzip
 RUN wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip && \
