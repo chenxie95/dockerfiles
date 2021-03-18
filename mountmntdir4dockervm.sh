@@ -5,3 +5,4 @@ sudo mkdir /var/lib/docker
 sudo mkdir /mnt/docker
 sudo mount --rbind /mnt/docker /var/lib/docker
 sudo systemctl start docker
+git config credential.helper store
