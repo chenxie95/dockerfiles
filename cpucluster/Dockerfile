@@ -15,7 +15,7 @@ RUN mkdir /tmp/openmpi && \
         wget https://download.open-mpi.org/release/open-mpi/v4.0/openmpi-4.0.0.tar.gz && \
         tar zxf ${OPENMPI_STRING}.tar.gz && \
         cd ${OPENMPI_STRING} && \
-        ./configure  --prefix /usr/local/mpi && \
+        ./configure --enable-orterun-prefix-by-default --with-openib --prefix /usr/local/mpi && \
         make -j 4 all && \
         make install && \
         ldconfig && \
