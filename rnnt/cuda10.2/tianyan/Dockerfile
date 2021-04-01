@@ -23,18 +23,25 @@ RUN mkdir /tmp/openmpi && \
         test -f /usr/local/mpi/bin/mpic++  # Sanity check
 ENV PATH /usr/local/mpi/bin:$PATH
 
+# install python3.8
+RUN apt-get install -y python3.8
+RUN apt install python3.8-distutils
+RUN wget https://bootstrap.pypa.io/get-pip.py && python3.8 get-pip.py
+RUN apt-get install python3.8-dev -y
+
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.8 1
+RUN update-alternatives --install /usr/bin/pip3  pip /usr/local/bin/pip3.8  1
+
 # RUN pip install torch==1.4.0+cu92 torchvision==0.5.0+cu92 -f https://download.pytorch.org/whl/torch_stable.html
 # RUN apt autoremove -y python && apt autoremove -y python3
 # RUN apt update
 # RUN apt install -y software-properties-common
 # RUN add-apt-repository ppa:deadsnakes/ppa
 # RUN apt-get update
-# RUN apt-get install -y python3.8
 #RUN alias python3='python3.8' && \
 #     alias python='python3.8'
 # RUN ln -s /usr/bin/python3.8 /usr/bin/python && \
 #    ln -s /usr/bin/python3.8 /usr/bin/python3 
-RUN apt-get -y install python3-pip
 
 # RUN pip3 uninstall torch
 # RUN pip3 install torch torchvision
@@ -66,24 +73,24 @@ RUN git clone https://github.com/NVIDIA/apex  && \
 
 RUN pip3 install mpi4py
 
-RUN pip install --upgrade pip
-
-RUN rm /usr/bin/python && \
-    ln -s /usr/bin/python3 /usr/bin/python && \
-    rm /usr/bin/pip    && \
-    ln -s /usr/bin/pip3 /usr/bin/pip && \
-    rm /usr/local/bin/pip && \
-    ln -s /usr/bin/pip3 /usr/local/bin/pip
+# RUN pip install --upgrade pip
+#RUN rm /usr/bin/python && \
+#    ln -s /usr/bin/python3 /usr/bin/python && \
+#    rm /usr/bin/pip    && \
+#    ln -s /usr/bin/pip3 /usr/bin/pip && \
+#    rm /usr/local/bin/pip && \
+#    ln -s /usr/bin/pip3 /usr/local/bin/pip
 
 RUN apt-get update -y && \
     apt-get install -y libibverbs-dev
 
-RUN pip install numba==0.48
-RUN pip install pandas
-RUN pip install tensorboard==1.15
-RUN pip install onnxruntime
-RUN pip install onnxruntime-gpu
-RUN pip install einops
-RUN pip install speechbrain
+RUN pip3 install numba==0.48
+RUN pip3 install pandas
+RUN pip3 install tensorboard==1.15
+RUN pip3 install onnxruntime
+RUN pip3 install onnxruntime-gpu
+RUN pip3 install einops
+RUN pip3 install speechbrain
+RUN pip3 install torchaudio
 
 CMD ["bash"]
