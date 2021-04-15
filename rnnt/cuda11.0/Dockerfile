@@ -57,7 +57,7 @@ RUN echo "set number" >> ~/.vimrc
 RUN apt-get install less
 
 RUN git clone https://github.com/NVIDIA/apex  && \ 
-    cd apex && \
+    cd apex && TORCH_CUDA_ARCH_LIST="3.7;6.0;7.0" \
     pip3 install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./ &&  \
     cd .. && rm -rf apex
 
@@ -79,7 +79,9 @@ RUN pip install numba==0.48
 RUN pip install pandas
 RUN pip install tensorboard==1.15
 RUN pip install onnxruntime
-RUN pip install onnxruntime-gpu
+# RUN pip install onnxruntime-gpu
+
+RUN pip install pycuda
 
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10 
 
