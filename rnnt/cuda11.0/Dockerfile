@@ -57,7 +57,7 @@ RUN echo "set number" >> ~/.vimrc
 RUN apt-get install less
 
 RUN git clone https://github.com/NVIDIA/apex  && \ 
-    cd apex && TORCH_CUDA_ARCH_LIST="3.7;6.0;7.0" \
+    cd apex && TORCH_CUDA_ARCH_LIST="3.7;6.0;7.0;7.5;8.0" \
     pip3 install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./ &&  \
     cd .. && rm -rf apex
 
