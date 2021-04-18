@@ -85,4 +85,6 @@ RUN pip install pycuda
 
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10 
 
+RUN pip install --upgrade azureml-sdk
+
 CMD ["bash"]
