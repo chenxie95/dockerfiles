@@ -95,9 +95,11 @@ RUN pip3 install --default-timeout=100 pycuda
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10 
 
 RUN pip3 install --default-timeout=100 --upgrade azureml-sdk
+RUN pip3 install torch_tb_profiler
 
-RUN git clone https://github.com/NVIDIA/apex  && \ 
-    cd apex &&  sed -i "s/check_cuda_torch/# check_cuda_torch/" setup.py  &&  \
-    TORCH_CUDA_ARCH_LIST="3.7;6.0;7.0;7.5;8.0" pip3 install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./ 
+#RUN git clone https://github.com/NVIDIA/apex  && \ 
+#    cd apex &&  sed -i "s/^\s\+check_cuda_torch/         #check_cuda_torch/" setup.p  &&  \
+#    TORCH_CUDA_ARCH_LIST="3.7;6.0;7.0;7.5;8.0" pip3 install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./ 
+
 
 CMD ["bash"]
