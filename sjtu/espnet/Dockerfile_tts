@@ -39,19 +39,19 @@ WORKDIR tools
 ENV CONDA_TOOLS_DIR `dirname ${CONDA_EXE})/..`
 RUN touch activate_python.sh && chmod +x activate_python.sh
 RUN apt-get -y install cmake && apt-get -y install sox && apt-get -y install libsndfile1-dev && apt-get -y install ffmpeg
-RUN make TH_VERSION=1.7.1 CUDA_VERSION=10.2
+RUN make TH_VERSION=1.8.0 CUDA_VERSION=10.2
 # RUN sed -i "s/\(echo.*CUDA\)/#\1/" setup_cuda_env.sh
 # RUN . ./setup_cuda_env.sh /usr/local/cuda
-ENV CUDA_HOME /usr/local/cuda
-# ENV PATH $CUDA_HOME/bin:$PATH
-# ENV LD_LIBRARY_PATH $CUDA_HOME/lib64:$LD_LIBRARY_PATH
-# ENV CFLAGS "-I$CUDA_HOME/include $CFLAGS"
-# ENV CPATH $CUDA_HOME/include:$CPATH
-# ENV CUDA_PATH $CUDA_HOME
+#ENV CUDA_HOME /usr/local/cuda
+#ENV PATH $CUDA_HOME/bin:$PATH
+#ENV LD_LIBRARY_PATH $CUDA_HOME/lib64:$LD_LIBRARY_PATH
+#ENV CFLAGS "-I$CUDA_HOME/include $CFLAGS"
+#ENV CPATH $CUDA_HOME/include:$CPATH
+#ENV CUDA_PATH $CUDA_HOME
 # RUN git config --global  --unset https.https://github.com.proxy
 # RUN git config --global  --unset http.https://github.com.proxy
 # RUN ./installers/install_warp-transducer.sh
-RUN git clone https://github.com/b-flo/warp-transducer.git && cd warp-transducer/ && git checkout espnet_v1.1 && mkdir build && cd build && cmake -DCUDA_TOOLKIT_ROOT_DIR=$CUDA_HOME .. && make && cd ../pytorch_binding && python setup.py install
+# RUN git clone https://github.com/b-flo/warp-transducer.git && cd warp-transducer/ && mkdir build && cd build && cmake -DCUDA_TOOLKIT_ROOT_DIR=$CUDA_HOME .. && make && cd pytorch_binding && python setup.py install
 
 WORKDIR /workdir
 
