@@ -39,7 +39,7 @@ WORKDIR tools
 ENV CONDA_TOOLS_DIR `dirname ${CONDA_EXE})/..`
 RUN touch activate_python.sh && chmod +x activate_python.sh
 RUN apt-get -y install cmake && apt-get -y install sox && apt-get -y install libsndfile1-dev && apt-get -y install ffmpeg
-RUN make TH_VERSION=1.7.1 CUDA_VERSION=10.2
+RUN make TH_VERSION=1.8.0 CUDA_VERSION=10.2
 # RUN sed -i "s/\(echo.*CUDA\)/#\1/" setup_cuda_env.sh
 # RUN . ./setup_cuda_env.sh /usr/local/cuda
 ENV CUDA_HOME /usr/local/cuda
