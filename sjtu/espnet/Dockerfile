@@ -53,6 +53,16 @@ ENV CUDA_PATH $CUDA_HOME
 RUN ./installers/install_warp-transducer.sh
 # RUN git clone https://github.com/b-flo/warp-transducer.git && cd warp-transducer/ && git checkout espnet_v1.1 && mkdir build && cd build && cmake -DCUDA_TOOLKIT_ROOT_DIR=$CUDA_HOME .. && make && cd ../pytorch_binding && python setup.py install
 
-WORKDIR /workdir
+
+# install boost
+WORKDIR /
+# RUN wget http://sourceforge.net/projects/boost/files/boost/1.52.0/boost_1_52_0.tar.gz/download -O boost_1_52_0.tar.gz --no-check-certificate && tar -xvzf boost_1_52_0.tar.gz && cd boost_1_52_0 && ./bootstrap.sh && ./b2 && ./b2 install
+RUN apt -y install libboost-all-dev
+RUN apt -y install aptitude && aptitude search boost
+# install kenlm
+WORKDIR /espnet/tools 
+RUN ./installers/install_kenlm.sh 
+
+WORKDIR /espnet
 
 CMD ["bash"]
